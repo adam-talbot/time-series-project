@@ -14,13 +14,14 @@ def get_data():
     '''
     df = pd.read_csv('GlobalLandTemperaturesByCity.csv')
     df = df[df.City == 'Phoenix']
-    df = df.rename(columns={'dt' : 'Date'})
+    df = df.rename(columns={'AverageTemperature' : 'avg_temp', 'dt' : 'Date'})
     df.Date = pd.to_datetime(df.Date)
     df = df.set_index('Date')
     df = df.sort_index()
-    s = df['AverageTemperature']
-    s = s.apply(C_to_F)
-    return s
+    df = df[['avg_temp']]    
+    df = df.apply(C_to_F)
+    df = df['2008': '2012']
+    return df
     
 
 
